@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es5",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "es5", "es6"],
     "types": ["cypress", "node"],
     "allowJs": false,
     "skipLibCheck": true,
@@ -18,5 +18,6 @@
     "jsx": "react-jsx"
   },
   "include": ["src", "**/*.ts"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

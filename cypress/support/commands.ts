@@ -36,38 +36,11 @@
 //   }
 // }
 
-Cypress.Commands.add("landing", () => {
-  const baseURL = "https://api.rawg.io/api";
+const baseURL = "https://api.rawg.io/api";
+const RAWG_API_KEY = "?key=" + Cypress.env("RAWG_API_KEY");
 
-  cy.intercept(`${baseURL}/games`, {
-    results: [
-      {
-        id: 1,
-        name: "The Witcher 3: Wild Hunt",
-        background_image:
-          "https://media.rawg.io/media/crop/600/400/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg",
-        parent_platforms: [
-          { id: 1, name: "PC", slug: "pc" },
-          { id: 2, name: "PlayStation", slug: "playstation" },
-          { id: 3, name: "Xbox", slug: "xbox" },
-          { id: 7, name: "Nintendo", slug: "nintendo" },
-        ],
-        metacritic: "92",
-      },
-      {
-        id: 2,
-        name: "BioShock Infinite",
-        background_image:
-          "https://media.rawg.io/media/crop/600/400/games/fc1/fc1307a2774506b5bd65d7e8424664a7.jpg",
-        parent_platforms: [
-          { id: 1, name: "PC", slug: "pc" },
-          { id: 2, name: "PlayStation", slug: "playstation" },
-          { id: 3, name: "Xbox", slug: "xbox" },
-          { id: 6, name: "Linux", slug: "linux" },
-          { id: 7, name: "Nintendo", slug: "nintendo" },
-        ],
-        metacritic: "94",
-      },
-    ],
-  });
+Cypress.Commands.add("landing", () => {
+  cy.intercept("GET", `${baseURL}/games${RAWG_API_KEY}`, {
+    fixture: "games.json",
+  }).as("getGames");
 });

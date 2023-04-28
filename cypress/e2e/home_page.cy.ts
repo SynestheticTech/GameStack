@@ -12,9 +12,11 @@ describe("The Home Page", () => {
   it("fetches game data", () => {
     cy.wait("@getGames").then((interception) => {
       expect(interception.response?.statusCode).to.eq(200);
-      expect(interception.response?.body).to.have.length(2);
+      expect(interception.response?.body.results).to.have.length(2);
       cy.fixture("games.json").then((games) => {
-        expect(interception.response?.body).to.deep.equal(games);
+        expect(interception.response?.body.results).to.deep.equal(
+          games.results
+        );
       });
     });
   });

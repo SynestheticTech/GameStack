@@ -18,4 +18,24 @@ describe("The Home Page", () => {
       });
     });
   });
+
+  it("fetches genres", () => {
+    cy.wait("@getGenres").then((interception) => {
+      expect(interception.response?.statusCode).to.eq(200);
+    });
+  });
+
+  it("displays game cards", () => {
+    cy.contains("h2", "The Witcher 3: Wild Hunt")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 92);
+      });
+
+    cy.contains("h2", "BioShock Infinite")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 94);
+      });
+  });
 });

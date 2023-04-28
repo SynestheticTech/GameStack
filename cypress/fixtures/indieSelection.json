@@ -1,0 +1,18 @@
+{
+  "results": [
+    {
+      "id": 3,
+      "name": "Hollow Knight",
+      "background_image": "https://media.rawg.io/media/games/4cf/4cfc6b7f1850590a4634b08bfab308ab.jpg",
+      "parent_platforms": [
+        { "id": 1, "name": "PC", "slug": "pc" },
+        { "id": 2, "name": "PlayStation", "slug": "playstation" },
+        { "id": 3, "name": "Xbox", "slug": "xbox" },
+        { "id": 5, "name": "Apple Macintosh", "slug": "mac" },
+        { "id": 6, "name": "Linux", "slug": "linux" },
+        { "id": 7, "name": "Nintendo", "slug": "nintendo" }
+      ],
+      "metacritic": "88"
+    }
+  ]
+}

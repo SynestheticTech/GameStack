@@ -12,7 +12,7 @@ describe("The Home Page", () => {
   it("fetches game data", () => {
     cy.wait("@getGames").then((interception) => {
       expect(interception.response?.statusCode).to.eq(200);
-      expect(interception.response?.body.results).to.have.length(2);
+      expect(interception.response?.body.results).to.have.length(3);
       cy.fixture("games.json").then((games) => {
         expect(interception.response?.body.results).to.deep.equal(
           games.results
@@ -38,6 +38,36 @@ describe("The Home Page", () => {
       .parent(".chakra-card__body")
       .within(() => {
         cy.contains("span", 94);
+      });
+
+    cy.contains("h2", "Hollow Knight")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 88);
+      });
+  });
+
+  it("displays genre list", () => {
+    cy.get("ul")
+      .find("li")
+      .should("have.length", 2)
+      .eq(0)
+      .should("contain", "Action")
+      .next()
+      .should("contain", "Indie");
+  });
+
+  it("only displays indie games, when filter is applied", () => {
+    cy.contains("Indie").click();
+
+    cy.wait("@getIndieGames")
+      .its("request.url")
+      .should("include", "&genres=51");
+
+    cy.contains("h2", "Hollow Knight")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 88);
       });
   });
 });

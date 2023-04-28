@@ -40,14 +40,15 @@ const baseURL = "https://api.rawg.io/api";
 const RAWG_API_KEY = "?key=" + Cypress.env("RAWG_API_KEY");
 
 Cypress.Commands.add("landing", () => {
-  cy.intercept(
-    { method: "GET", url: `${baseURL}/games${RAWG_API_KEY}` },
-    {
-      fixture: "games.json",
-    }
-  ).as("getGames");
+  cy.intercept("GET", `${baseURL}/games${RAWG_API_KEY}`, {
+    fixture: "games.json",
+  }).as("getGames");
 
   cy.intercept("GET", `${baseURL}/genres${RAWG_API_KEY}`, {
     fixture: "genres.json",
   }).as("getGenres");
+
+  cy.intercept("GET", `${baseURL}/games${RAWG_API_KEY}&genres=51`, {
+    fixture: "indieSelection.json",
+  }).as("getIndieGames");
 });

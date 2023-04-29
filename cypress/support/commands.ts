@@ -51,4 +51,8 @@ Cypress.Commands.add("landing", () => {
   cy.intercept("GET", `${baseURL}/games${RAWG_API_KEY}&genres=51`, {
     fixture: "indieSelection.json",
   }).as("getIndieGames");
+
+  cy.intercept("GET", `${baseURL}/games${RAWG_API_KEY}&platforms=3`, {
+    fixture: "xboxSelection.json",
+  }).as("getXboxPlatform");
 });

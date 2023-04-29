@@ -70,4 +70,27 @@ describe("The Home Page", () => {
         cy.contains("span", 88);
       });
   });
+
+  it("only displays xbox platform games when filter is set", () => {
+    cy.contains("Platforms").click();
+    cy.contains("Xbox").click();
+
+    cy.wait("@getXboxPlatform")
+      .its("request.url")
+      .should("include", "&platforms=3");
+
+    cy.contains("h2", "The Witcher 3: Wild Hunt")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 92);
+      });
+
+    cy.contains("h2", "BioShock Infinite")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 94);
+      });
+
+    cy.contains("h2", "Hollow Knight").should("not.exist");
+  });
 });

@@ -15,6 +15,7 @@ const SearchInput = ({ onSearch }: Props) => {
         event.preventDefault();
         if (ref.current) onSearch(ref.current.value);
       }}
+      data-cy="search"
     >
       <InputGroup>
         <InputLeftElement children={<BsSearch />} />

@@ -1,6 +1,10 @@
+const searchQuery = "The+Witcher+3";
+const searchString = "The Witcher 3";
+
 describe("The Home Page", () => {
   beforeEach(() => {
     cy.landing();
+    cy.dynamicSearchRequest(searchQuery, searchString);
     cy.visit("/");
   });
 
@@ -91,6 +95,21 @@ describe("The Home Page", () => {
         cy.contains("span", 94);
       });
 
+    cy.contains("h2", "Hollow Knight").should("not.exist");
+  });
+
+  it("searches for games", () => {
+    cy.get("[data-cy='search']").click().type(searchString).submit();
+    cy.wait("@searchGames")
+      .its("request.url")
+      .should("include", "&search=The+Witcher+3");
+
+    cy.contains("h2", "The Witcher 3: Wild Hunt")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 92);
+      });
+    cy.contains("h2", "BioShock Infinite").should("not.exist");
     cy.contains("h2", "Hollow Knight").should("not.exist");
   });
 });

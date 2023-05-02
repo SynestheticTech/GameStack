@@ -36,6 +36,8 @@
 //   }
 // }
 
+import { Game } from "../../src/hooks/useGames";
+
 const baseURL = "https://api.rawg.io/api";
 const RAWG_API_KEY = "?key=" + Cypress.env("RAWG_API_KEY");
 
@@ -55,4 +57,18 @@ Cypress.Commands.add("landing", () => {
   cy.intercept("GET", `${baseURL}/games${RAWG_API_KEY}&platforms=3`, {
     fixture: "xboxSelection.json",
   }).as("getXboxPlatform");
+});
+
+Cypress.Commands.add("dynamicSearchRequest", (searchQuery, searchString) => {
+  cy.intercept(
+    "GET",
+    `${baseURL}/games${RAWG_API_KEY}&search=${searchQuery}`,
+    (req) => {
+      const data = require("../fixtures/games.json");
+      const filteredResults = data.results.filter((game: Game) => {
+        return game.name.toLowerCase().includes(searchString.toLowerCase());
+      });
+      req.reply({ results: filteredResults });
+    }
+  ).as("searchGames");
 });

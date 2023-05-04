@@ -10,7 +10,7 @@
         { "id": 3, "name": "Xbox", "slug": "xbox" },
         { "id": 7, "name": "Nintendo", "slug": "nintendo" }
       ],
-      "metacritic": "92"
+      "metacritic": 92
     },
     {
       "id": 2,
@@ -23,7 +23,7 @@
         { "id": 6, "name": "Linux", "slug": "linux" },
         { "id": 7, "name": "Nintendo", "slug": "nintendo" }
       ],
-      "metacritic": "94"
+      "metacritic": 94
     },
     {
       "id": 3,
@@ -37,7 +37,7 @@
         { "id": 6, "name": "Linux", "slug": "linux" },
         { "id": 7, "name": "Nintendo", "slug": "nintendo" }
       ],
-      "metacritic": "88"
+      "metacritic": 88
     }
   ]
 }

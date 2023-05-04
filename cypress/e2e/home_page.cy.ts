@@ -1,6 +1,12 @@
+const searchQuery = "The+Witcher+3";
+const searchString = "The Witcher 3";
+const popularitySort = "-metacritic";
+
 describe("The Home Page", () => {
   beforeEach(() => {
     cy.landing();
+    cy.dynamicSearchRequest(searchQuery, searchString);
+    cy.sortQuery(popularitySort);
     cy.visit("/");
   });
 
@@ -92,5 +98,40 @@ describe("The Home Page", () => {
       });
 
     cy.contains("h2", "Hollow Knight").should("not.exist");
+  });
+
+  it("searches for games", () => {
+    cy.get("[data-cy='search']").click().type(searchString).submit();
+    cy.wait("@searchGames")
+      .its("request.url")
+      .should("include", "&search=The+Witcher+3");
+
+    cy.contains("h2", "The Witcher 3: Wild Hunt")
+      .parent(".chakra-card__body")
+      .within(() => {
+        cy.contains("span", 92);
+      });
+    cy.contains("h2", "BioShock Infinite").should("not.exist");
+    cy.contains("h2", "Hollow Knight").should("not.exist");
+  });
+
+  it("sorts by popularity", () => {
+    cy.get("[data-cy='sort-selector']")
+      .click()
+      .get("div > button[value='-metacritic'")
+      .click();
+    cy.wait("@descendingSort")
+      .its("request.url")
+      .should("include", "&ordering=-metacritic");
+
+    cy.get("[data-cy='game-grid']").children().should("have.length", 3);
+    cy.get("[data-cy='game-grid']")
+      .children()
+      .first()
+      .should("contain.text", 94)
+      .next()
+      .should("contain.text", 92)
+      .next()
+      .should("contain.text", 88);
   });
 });

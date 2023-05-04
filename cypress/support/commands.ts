@@ -65,10 +65,24 @@ Cypress.Commands.add("dynamicSearchRequest", (searchQuery, searchString) => {
     `${baseURL}/games${RAWG_API_KEY}&search=${searchQuery}`,
     (req) => {
       const data = require("../fixtures/games.json");
-      const filteredResults = data.results.filter((game: Game) => {
-        return game.name.toLowerCase().includes(searchString.toLowerCase());
-      });
+      const filteredResults = data.results.filter((game: Game) =>
+        game.name.toLowerCase().includes(searchString.toLowerCase())
+      );
       req.reply({ results: filteredResults });
     }
   ).as("searchGames");
+});
+
+Cypress.Commands.add("sortQuery", (query) => {
+  cy.intercept(
+    "GET",
+    `${baseURL}/games${RAWG_API_KEY}&ordering=${query}`,
+    (req) => {
+      const data = require("../fixtures/games.json");
+      const sortedResults = data.results.sort(
+        (a: Game, b: Game) => b.metacritic - a.metacritic
+      );
+      req.reply({ results: sortedResults });
+    }
+  ).as("descendingSort");
 });

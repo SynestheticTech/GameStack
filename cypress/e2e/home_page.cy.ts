@@ -115,7 +115,7 @@ describe("The Home Page", () => {
     cy.contains("h2", "Hollow Knight").should("not.exist");
   });
 
-  it.only("sorts by popularity", () => {
+  it("sorts by popularity", () => {
     cy.get("[data-cy='sort-selector']")
       .click()
       .get("div > button[value='-metacritic'")

@@ -27,12 +27,6 @@ describe("The Home Page", () => {
     });
   });
 
-  it("fetches genres", () => {
-    cy.wait("@getGenres").then((interception) => {
-      expect(interception.response?.statusCode).to.eq(200);
-    });
-  });
-
   it("displays game cards", () => {
     cy.contains("h2", "The Witcher 3: Wild Hunt")
       .parent(".chakra-card__body")
@@ -56,7 +50,7 @@ describe("The Home Page", () => {
   it("displays genre list", () => {
     cy.get("ul")
       .find("li")
-      .should("have.length", 2)
+      .should("have.length", 19)
       .eq(0)
       .should("contain", "Action")
       .next()
@@ -133,5 +127,15 @@ describe("The Home Page", () => {
       .should("contain.text", 92)
       .next()
       .should("contain.text", 88);
+  });
+
+  it("displays a dynamic heading", () => {
+    cy.get("[data-cy='Action']").click();
+    cy.contains("Platforms").click();
+    cy.contains("Xbox").click();
+    cy.get("[data-cy='game-heading']").should(
+      "contain.text",
+      "Xbox Action Games"
+    );
   });
 });

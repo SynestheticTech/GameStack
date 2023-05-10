@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && rm -rf build/cypress && mv cypress run_cypress",
     "preview": "vite preview"
   },
   "dependencies": {

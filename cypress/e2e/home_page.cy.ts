@@ -72,8 +72,8 @@ describe("The Home Page", () => {
   });
 
   it("only displays xbox platform games when filter is set", () => {
-    cy.contains("Platforms").click();
-    cy.contains("Xbox").click();
+    cy.get("[data-cy='platform-selector']").click();
+    cy.get("[data-cy='Xbox']").click();
 
     cy.wait("@getXboxPlatform")
       .its("request.url")

@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+export {};
 
 declare namespace Cypress {
   interface Chainable<Subject> {

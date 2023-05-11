@@ -10,7 +10,11 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "scripts": {
-    "build": "npm run build:prod"
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "command": "npm run build:prod",
+    "use": "@vercel/static"
   }
 }

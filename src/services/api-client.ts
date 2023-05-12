@@ -7,4 +7,5 @@ export default axios.create({
   params: {
     key: RAWG_API_KEY,
   },
+  withCredentials: false,
 });

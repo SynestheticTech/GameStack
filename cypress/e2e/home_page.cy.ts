@@ -1,8 +1,7 @@
-const searchQuery = "The+Witcher+3";
-const searchString = "The Witcher 3";
-const popularitySort = "-metacritic";
-
 describe("The Home Page", () => {
+  const searchQuery = "The+Witcher+3";
+  const searchString = "The Witcher 3";
+  const popularitySort = "-metacritic";
   beforeEach(() => {
     cy.landing();
     cy.dynamicSearchRequest(searchQuery, searchString);

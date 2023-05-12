@@ -82,3 +82,5 @@ Cypress.Commands.add("sortQuery", (query) => {
     }
   ).as("descendingSort");
 });
+
+export {};

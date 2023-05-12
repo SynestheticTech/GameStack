@@ -1,4 +1,3 @@
-export {};
 const searchQuery = "The+Witcher+3";
 const searchString = "The Witcher 3";
 const popularitySort = "-metacritic";
